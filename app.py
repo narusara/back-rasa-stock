@@ -17,9 +17,9 @@ def newuser_register():
     json_response = StockRepository.add_user(request.get_json())
     return jsonify({"message": json_response})
 
-@app.route('/')
-def hello():
-    return "Hello"
+# @app.route('/')
+# def hello():
+#     return "Hello"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)    
