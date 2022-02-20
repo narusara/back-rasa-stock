@@ -1,33 +1,25 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+from repository import StockRepository
 
 app = Flask(__name__)
 
-data = [
-        {
-            "id": 1,
-            "library": "Pandas",
-            "language": "Python"
-        },
-        {
-            "id": 2,
-            "library": "requests",
-            "language": "Python"
-        },
-        {
-            "id": 3,
-            "library": "NumPy",
-            "language": "Python"
-        }
-    ]
+@app.route('/checktel_and_retrieve_username', methods=['POST'])
+def checktel_and_retrieve_username():
+    check = StockRepository.check_tel(request.get_json()["user_tel"])
+    if check != "":
+        json_response = check["name"]+" "+check["surname"]
+        return jsonify({"have_account": True, "user_name": json_response})
+    else:
+        return jsonify({"have_account": False})
 
-@app.route('/')
-def hello():
-    return "Hello Flask-Heroku"
+@app.route('/newuser_register', methods=['POST'])
+def newuser_register():
+    json_response = StockRepository.add_user(request.get_json())
+    return jsonify({"message": json_response})
 
-
-@app.route('/api', methods=['GET'])
-def get_api():
-    return jsonify(data)
+@app.route('/', methods=['POST'])
+def function():
+    return "a"
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)    
