@@ -1,12 +1,14 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request 
+from flask_cors import CORS
 from repository import StockRepository
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/checktel_and_retrieve_username', methods=['POST'])
 def checktel_and_retrieve_username():
-    check = StockRepository.check_tel(request.get_json()["user_tel"])
-    if check != "":
+    check = StockRepository.retrieve_profile(request.get_json()["user_tel"])
+    if check != None:
         json_response = check["name"]+" "+check["surname"]
         return jsonify({"have_account": True, "user_name": json_response})
     else:
@@ -17,9 +19,15 @@ def newuser_register():
     json_response = StockRepository.add_user(request.get_json())
     return jsonify({"message": json_response})
 
-# @app.route('/')
-# def hello():
-#     return "Hello"
+@app.route('/retrieve_profile', methods=['POST'])
+def retrieve_profile():
+    json_response = StockRepository.retrieve_profile(request.get_json()["user_tel"])
+    return jsonify({"message": json_response})
+
+@app.route('/update_profile', methods=['POST'])
+def update_profile():
+    json_response = StockRepository.update_profile(request.get_json())
+    return jsonify({"message": json_response})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)    
