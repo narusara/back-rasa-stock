@@ -58,4 +58,4 @@ class StockRepository:
                                     "Zipcode": jsonreq["Zipcode"]}})
             return "update complete"
         else:
-            return "not found this user"
+            return "not found user"

@@ -29,5 +29,6 @@ def update_profile():
     json_response = StockRepository.update_profile(request.get_json())
     return jsonify({"message": json_response})
 
+
 if __name__ == "__main__":
     app.run(debug=True)    
