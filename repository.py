@@ -55,7 +55,7 @@ class StockRepository:
                                     "Address": jsonreq["Address"],
                                     "Amphoe": jsonreq["Amphoe"],
                                     "Tambol": jsonreq["Tambol"],
-                                    "Provice": jsonreq["Provice"],
+                                    "Province": jsonreq["Province"],
                                     "Zipcode": jsonreq["Zipcode"]}})
             return "update complete"
         else:
