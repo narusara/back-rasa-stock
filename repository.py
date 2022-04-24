@@ -55,7 +55,8 @@ class StockRepository:
                                     "Address": jsonreq["Address"],
                                     "Amphoe": jsonreq["Amphoe"],
                                     "Tambol": jsonreq["Tambol"],
+                                    "Provice": jsonreq["Provice"],
                                     "Zipcode": jsonreq["Zipcode"]}})
             return "update complete"
         else:
-            return "not found user"
+            return "not found this user"
