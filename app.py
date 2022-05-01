@@ -10,14 +10,16 @@ def checktel_and_retrieve_username():
     check = StockRepository.retrieve_profile(request.get_json()["user_tel"])
     if check != None:
         json_response = check["name"]+" "+check["surname"]
-        return jsonify({"have_account": True, "user_name": json_response})
+        return jsonify({"have_account": True, "user_name": json_response, "_id": check["_id"]})
     else:
         return jsonify({"have_account": False})
 
 @app.route('/newuser_register', methods=['POST'])
 def newuser_register():
-    json_response = StockRepository.add_user(request.get_json())
-    return jsonify({"message": json_response})
+    json = request.get_json()
+    json_response = StockRepository.add_user(json)
+    user_id = StockRepository.retrieve_profile(json["user_tel"])
+    return jsonify({"message": json_response, "_id": user_id["_id"]})
 
 @app.route('/retrieve_profile', methods=['POST'])
 def retrieve_profile():
