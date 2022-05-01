@@ -39,11 +39,8 @@ class StockRepository:
         all_user = db.get_collection("User")
         user = all_user.find_one({"user_tel": tel})
         if user != None:
-            print(user["_id"])
             user_id = str(user["_id"])
-            print(ObjectId(user_id))
             user["_id"] = user_id
-            # user.pop("_id", None)
         return user
 
     @staticmethod
